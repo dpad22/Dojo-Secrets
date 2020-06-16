@@ -39,10 +39,10 @@
   </div>
 </nav>
 
-<% if flash[:errors] %>
-  <% flash[:errors].each do |e| %>
-    <%= e %>
-  <% end %>
+<% flash.each do |type,msg| %>
+  <div class="alert alert-danger">
+    <%= msg %>
+  </div>
 <% end %>
 
 <%= yield %>

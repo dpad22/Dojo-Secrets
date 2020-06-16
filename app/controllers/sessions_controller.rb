@@ -9,15 +9,17 @@ class SessionsController < ApplicationController
 
   def create
     # Log User in
-    user = User.where(email: params[:user][:email]).first
-      if user.authenticate(params[:user][:password])
-        session[:user_id] = user.id
-        redirect_to "/users/#{user.id}"
+    user = User.where(email: params[:user][:email])
+      if !user.empty?
+        if user[0].authenticate(params[:user][:password])
+          session[:user_id] = user[0].id
+          redirect_to "/users/#{user[0].id}"
+        else
+          redirect_to login_url, notice: "Invalid (Nested) login Attempt"
+        end
       else
-        flash[:errors] = ['Invalid login attempt']
-        redirect_to login_url
+        redirect_to login_url, notice: "Invalid login Attempt"
       end
-
   end
 
   def destroy
