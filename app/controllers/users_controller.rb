@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @user = User.new(name: params['name'],email: params['email'], password: params['password'], confirm_pw: params['confirm_pw'])
       if @user.valid?
         @user.save
-        redirect_to login_url
+        redirect_to '/sessions/new'
       else
         flash[:errors] = ['Fields cant be blank']
         redirect_to '/users/new'
